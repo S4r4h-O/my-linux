@@ -1,2 +1,2 @@
 # my-linux
-My configs
+My configs for personal and work productivity (and for fun too).
