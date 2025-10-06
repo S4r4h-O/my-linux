@@ -1,0 +1,18 @@
+qemu-system-x86_64 \
+  -enable-kvm \
+  -cpu host,+topoext \
+  -smp 4 \
+  -m 4096 \
+  -device virtio-vga \
+  -display spice-app \
+  -device virtio-mouse-pci \
+  -device virtio-keyboard-pci \
+  -drive file=/path/to/arch/disk.qcow2,if=virtio,format=qcow2 \
+  -boot menu=on \
+  -device ich9-intel-hda -device hda-output \
+  -machine type=q35,accel=kvm \
+  -drive if=pflash,format=raw,readonly=on,file=/usr/share/edk2/ovmf/OVMF_CODE.fd \
+  -drive if=pflash,format=raw,file=/path/to/efivars.fd \
+  -device virtio-serial-pci \
+  -device virtserialport,chardev=spicechannel0,name=com.redhat.spice.0 \
+  -chardev spicevmc,id=spicechannel0,name=vdagent
