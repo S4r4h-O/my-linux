@@ -1,5 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=/usr/local/bin:$HOME/.local/bin:$PATH
+typeset -U path
 
 export ZSH="$HOME/.oh-my-zsh"
 export EDITOR="/usr/bin/nvim"
@@ -9,7 +10,6 @@ ZSH_THEME="agnosterzak"
 plugins=(
   git
   gitfast
-  dnf
   zsh-autosuggestions
   zsh-syntax-highlighting
   copypath
@@ -50,6 +50,3 @@ alias lla='ls -la'
 
 # Zoxide
 eval "$(zoxide init zsh)"
-
-# Deduplicate path
-export PATH=$(echo "$PATH" | awk -v RS=: -v ORS=: '!seen[$0]++')
