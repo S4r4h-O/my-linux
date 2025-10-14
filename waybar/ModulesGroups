@@ -98,11 +98,11 @@
 	"orientation": "inherit",
 	"drawer": {
 		"transition-duration": 500,
-		"children-class": "custom/swaync",
+		"children-class": "custom/mako",
 		"transition-left-to-right": false
         },
 	"modules": [
-		"custom/swaync",
+		"custom/mako",
 		"custom/dot_update",
 	]
 },
