@@ -1,0 +1,53 @@
+<domain type='kvm'>
+  <name>Arch_VM</name>
+  <memory unit='MiB'>2048</memory>
+  <vcpu placement='static'>4</vcpu>
+
+  <cpu mode='host-passthrough' />
+
+  <os>
+    <type arch='x86_64'>hvm</type>
+    <loader readonly='yes' type='pflash'>/usr/share/OVMF/OVMF_CODE.fd</loader>
+    <nvram>/var/lib/libvirt/qemu/nvram/arch_test_vm_VARS.fd</nvram>
+    <boot dev='cdrom' />
+    <boot dev='hd' />
+  </os>
+
+  <features>
+    <acpi />
+  </features>
+
+  <iothreads>1</iothreads>
+
+  <devices>
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2' cache='writeback' iothread='1' />
+      <source file='/path/to/arch/arch_vm.qcow2' />
+      <target dev='vda' bus='virtio' />
+    </disk>
+
+    <disk type='file' device='cdrom'>
+      <driver name='qemu' type='raw' />
+      <source file='/path/to/archlinux-x86_64.iso' />
+      <target dev='hdc' bus='ide' />
+      <readonly />
+    </disk>
+
+    <interface type='network'>
+      <source network='default' />
+      <model type='virtio' />
+    </interface>
+
+    <video>
+      <model type='virtio' vram='131072' heads='1' />
+    </video>
+
+    <channel type='spicevmc'>
+      <target type='virtio' name='com.redhat.spice.0' />
+    </channel>
+
+    <graphics type='spice' autoport='yes' listen='0.0.0.0'>
+      <listen type='address' address='0.0.0.0' />
+    </graphics>
+  </devices>
+</domain>
