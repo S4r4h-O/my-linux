@@ -37,7 +37,7 @@ window {
     border: 2px;
     border-color: var(bdr-col);
     border-radius: 5px;
-    width: 25%;
+    width: 50%;
     anchor: center;
     x-offset: 0;
     y-offset: 0;
