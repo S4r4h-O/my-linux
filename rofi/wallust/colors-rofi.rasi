@@ -24,7 +24,7 @@ selected-urgent-background: #D8649A;
 selected-urgent-foreground: #EAD2CD;
 
 background-color: #272227;
-background: rgba(0,0,0,0.7);
+background: rgba(142,38,127,0.2);
 foreground: #EAD2CD;
 border-color: #D8649A;
 
@@ -44,7 +44,4 @@ color12: #D8649A;
 color13: #D8649A;
 color14: #C47F6F;
 color15: #D9B7AF;
-
-
 }
-
