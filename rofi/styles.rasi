@@ -11,172 +11,169 @@ configuration {
 }
 
 /* ---- Load wallust colors ---- */
-@theme "~/.config/rofi/wallust/colors-rofi.rasi"
+@import "~/.config/rofi/wallust/colors-rofi.rasi"
 
 /*****----- Global Properties -----*****/
 * {
-  bg: @background;
-  bga: @color11;
-  fg: @foreground;
-  fga: #f28fadff;
-  bdr: @color12;
-  sel: #1e1e2eff;
-  ugt: #f28fadff;
-  img: #fae3b0ff;
-  off: #575268ff;
-  on: #abe9b3ff;
-  transparent: rgba(255, 255, 255, 0);
+    /* Defina as variáveis primeiro */
+    bg-col: @background;
+    bga-col: @color11;
+    fg-col: @foreground;
+    fga-col: #f28fadff;
+    bdr-col: @color12;
+    sel-col: #1e1e2eff;
+    ugt-col: #f28fadff;
+    img-col: #fae3b0ff;
+    off-col: #575268ff;
+    on-col: #abe9b3ff;
+    transparent-col: rgba(255, 255, 255, 0);
 }
 
 /* ---- Window ---- */
 window {
-  transparency: "real";
-  background-color: @BG;
-  text-color: @FG;
-  border: 2px;
-  border-color: @BDR;
-  border-radius: 5px;
-  width: 25%;
-  anchor: center;
-  x-offset: 0;
-  y-offset: 0;
+    transparency: "real";
+    background-color: var(bg-col);
+    text-color: var(fg-col);
+    border: 2px;
+    border-color: var(bdr-col);
+    border-radius: 5px;
+    width: 25%;
+    anchor: center;
+    x-offset: 0;
+    y-offset: 0;
 }
 
 entry {
-  background-color: @BG;
-  text-color: @FG;
-  placeholder-color: @FG;
-  expand: true;
-  horizontal-align: 0;
-  placeholder: "Search       ⁿᵒᵗᵉ: ᵖʳᵉˢˢ ᶜᵗʳˡ ᵗᵃᵇ ᵗᵒ ᶜʰᵃⁿᵍᵉ ᵐᵒᵈᵉˢ";
-  blink: true;
-  border: 2px;
-  border-color: @BDR;
-  border-radius: 1px;
-  padding: 8px;
+    background-color: var(bg-col);
+    text-color: var(fg-col);
+    placeholder-color: var(fg-col);
+    expand: true;
+    horizontal-align: 0;
+    placeholder: "Search       ⁿᵒᵗᵉ: ᵖʳᵉˢˢ ᶜᵗʳˡ ᵗᵃᵇ ᵗᵒ ᶜʰᵃⁿᵍᵉ ᵐᵒᵈᵉˢ";
+    blink: true;
+    border: 2px;
+    border-color: var(bdr-col);
+    border-radius: 1px;
+    padding: 8px;
 }
 
 inputbar {
-  children:
-    [entry];
-  background-color: @BG;
-  text-color: @FG;
-  expand: false;
-  border: 0px 0px 0px 0px;
-  border-radius: 0px;
-  border-color: @BDR;
-  margin: 0px 0px 0px 0px;
-  padding: 0px;
-  position: center;
+    children: [entry];
+    background-color: var(bg-col);
+    text-color: var(fg-col);
+    expand: false;
+    border: 0px 0px 0px 0px;
+    border-radius: 0px;
+    border-color: var(bdr-col);
+    margin: 0px 0px 0px 0px;
+    padding: 0px;
+    position: center;
 }
 
 case-indicator {
-  background-color: @BG;
-  text-color: @FG;
-  spacing: 0;
+    background-color: var(bg-col);
+    text-color: var(fg-col);
+    spacing: 0;
 }
 
 listview {
-  background-color: @BG;
-  columns: 1;
-  lines: 7;
-  spacing: 4px;
-  cycle: false;
-  dynamic: true;
-  layout: vertical;
+    background-color: var(bg-col);
+    columns: 1;
+    lines: 7;
+    spacing: 4px;
+    cycle: false;
+    dynamic: true;
+    layout: vertical;
 }
 
 /* ---- Scrollbar ---- */
 scrollbar {
-  border: 0px;
-  border-radius: 10px;
-  background-color: transparent;
-  handle-color: @BDR;
-  handle-width: 2px;
-  padding: 0;
+    border: 0px;
+    border-radius: 10px;
+    background-color: var(transparent-col);
+    handle-color: var(bdr-col);
+    handle-width: 2px;
+    padding: 0;
 }
 
 mainbox {
-  background-color: @BG;
-  children:
-    [ inputbar,
-    message,
-    listview];
-  spacing: 15px;
-  padding: 15px;
+    background-color: var(bg-col);
+    children: [inputbar, message, listview];
+    spacing: 15px;
+    padding: 15px;
 }
 
 element {
-  background-color: @TRANSPARENT;
-  text-color: @TRANSPARENT;
-  orientation: horizontal;
-  border-radius: 2px;
-  padding: 12px;
+    background-color: var(transparent-col);
+    text-color: var(fg-col);
+    orientation: horizontal;
+    border-radius: 2px;
+    padding: 12px;
 }
 
 element-icon {
-  background-color: @TRANSPARENT;
-  text-color: white;
-  horizontal-align: 0.5;
-  vertical-align: 0.5;
-  size: 24px;
-  border: 0px;
+    background-color: var(transparent-col);
+    text-color: inherit;
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+    size: 24px;
+    border: 0px;
 }
 
 element-text {
-  background-color: inherit;
-  text-color: white;
-  expand: true;
-  horizontal-align: 0;
-  vertical-align: 0.5;
-  margin: 2px 0px 2px 2px;
+    background-color: inherit;
+    text-color: inherit;
+    expand: true;
+    horizontal-align: 0;
+    vertical-align: 0.5;
+    margin: 2px 0px 2px 2px;
 }
 
 element normal.urgent,
 element alternate.urgent {
-  background-color: @UGT;
-  text-color: @FG;
-  border-radius: 2px;
+    background-color: var(ugt-col);
+    text-color: var(fg-col);
+    border-radius: 2px;
 }
 
 element normal.active,
 element alternate.active {
-  background-color: @BGA;
-  text-color: @FG;
+    background-color: var(bga-col);
+    text-color: var(fg-col);
 }
 
-element-text selected,
 element selected {
-  background-color: @BGA;
-  text-color: @SEL;
-  border: 0px 0px 0px 0px;
-  border-radius: 2px;
-  border-color: @BDR;
+    background-color: var(sel-col);
+    text-color: var(fg-col);
+    border: 0px;
+    border-radius: 2px;
 }
 
 element selected.urgent {
-  background-color: @UGT;
-  text-color: @FG;
+    background-color: var(ugt-col);
+    text-color: var(fg-col);
 }
 
 element selected.active {
-  background-color: @BGA;
-  color: @FG;
+    background-color: var(bga-col);
+    text-color: var(fg-col);
 }
 
 /*****----- Message -----*****/
 message {
-  background-color: transparent;
-  border: 0px;
+    background-color: var(transparent-col);
+    border: 0px;
 }
+
 error-message {
-  padding: 20px;
+    padding: 20px;
 }
+
 textbox {
-  padding: 10px;
-  border-radius: 10px;
-  background-color: @BDR;
-  text-color: @SEL;
-  vertical-align: 0.5;
-  horizontal-align: 0.5;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(bdr-col);
+    text-color: var(sel-col);
+    vertical-align: 0.5;
+    horizontal-align: 0.5;
 }
