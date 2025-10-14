@@ -5,13 +5,13 @@ typeset -U path
 export ZSH="$HOME/.oh-my-zsh"
 export EDITOR="/usr/bin/nvim"
 
-ZSH_THEME="agnosterzak"
+# ZSH_THEME="agnosterzak"
 
 plugins=(
   git
   gitfast
-  zsh-autosuggestions
-  zsh-syntax-highlighting
+#  zsh-autosuggestions
+#  zsh-syntax-highlighting
   copypath
   extract
   qrcode
