@@ -1,53 +1,49 @@
 <domain type='kvm'>
   <name>Arch_VM</name>
-  <memory unit='MiB'>2048</memory>
+  <memory unit='MiB'>4096</memory>
   <vcpu placement='static'>4</vcpu>
-
-  <cpu mode='host-passthrough' />
-
+  <cpu mode='host-passthrough' check='none'>
+    <topology sockets='1' dies='1' cores='2' threads='2' />
+  </cpu>
   <os>
     <type arch='x86_64'>hvm</type>
     <loader readonly='yes' type='pflash'>/usr/share/OVMF/OVMF_CODE.fd</loader>
     <nvram>/var/lib/libvirt/qemu/nvram/arch_test_vm_VARS.fd</nvram>
-    <boot dev='cdrom' />
     <boot dev='hd' />
+    <boot dev='cdrom' />
   </os>
-
   <features>
     <acpi />
+    <apic />
+    <vmport state='off' />
   </features>
-
-  <iothreads>1</iothreads>
-
+  <iothreads>2</iothreads>
   <devices>
     <disk type='file' device='disk'>
-      <driver name='qemu' type='qcow2' cache='writeback' iothread='1' />
-      <source file='/path/to/arch/arch_vm.qcow2' />
+      <driver name='qemu' type='qcow2' cache='none' io='native' iothread='1' discard='unmap' />
+      <source file='/path/to/arch_vm.qcow2' />
       <target dev='vda' bus='virtio' />
     </disk>
-
     <disk type='file' device='cdrom'>
       <driver name='qemu' type='raw' />
       <source file='/path/to/archlinux-x86_64.iso' />
-      <target dev='hdc' bus='ide' />
+      <target dev='sda' bus='sata' />
       <readonly />
     </disk>
-
     <interface type='network'>
       <source network='default' />
       <model type='virtio' />
     </interface>
-
     <video>
-      <model type='virtio' vram='131072' heads='1' />
+      <model type='virtio' heads='1'>
+        <acceleration accel3d='yes' />
+      </model>
+      <gl enable='yes' />
     </video>
-
-    <channel type='spicevmc'>
-      <target type='virtio' name='com.redhat.spice.0' />
-    </channel>
-
-    <graphics type='spice' autoport='yes' listen='0.0.0.0'>
-      <listen type='address' address='0.0.0.0' />
+    <graphics type='spice'>
+      <listen type='socket' />
+      <gl enable='yes' rendernode='/dev/dri/renderD128' />
     </graphics>
+    <memballoon model='virtio' />
   </devices>
 </domain>
