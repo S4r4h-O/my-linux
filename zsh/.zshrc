@@ -3,15 +3,16 @@ export PATH=/usr/local/bin:$HOME/.local/bin:$PATH
 typeset -U path
 
 export ZSH="$HOME/.oh-my-zsh"
+export ZSH_CUSTOM="/usr/share/zsh/"
 export EDITOR="/usr/bin/nvim"
 
-# ZSH_THEME="agnosterzak"
+ZSH_THEME="jonathan"
 
 plugins=(
   git
   gitfast
-#  zsh-autosuggestions
-#  zsh-syntax-highlighting
+  zsh-autosuggestions
+  zsh-syntax-highlighting
   copypath
   extract
   qrcode
@@ -46,7 +47,7 @@ alias ls='lsd'
 alias l='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
-# alias lt='ls --tree'
+alias lt='ls --tree'
 
 # Zoxide
 eval "$(zoxide init zsh)"
