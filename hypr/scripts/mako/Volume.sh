@@ -1,5 +1,4 @@
 #!/bin/bash
-sDIR="$HOME/.config/hypr/scripts"
 
 get_volume() {
   volume=$(pamixer --get-volume)
@@ -21,11 +20,11 @@ get_icon() {
 
 notify_user() {
   icon=$(get_icon)
+  volume=$(pamixer --get-volume)
   if [[ "$(get_volume)" == "Muted" ]]; then
-    notify-send -u low "$icon Volume" "Muted"
+    notify-send -a "volume-control" -u low "$icon Volume" "Muted"
   else
-    notify-send -h int:value:"$(get_volume | sed 's/%//')" -u low "$icon Volume" "$(get_volume)"
-    "$sDIR/Sounds.sh" --volume
+    notify-send -a "volume-control" -h int:value:"$volume" -u low "$icon Volume" "$(get_volume)"
   fi
 }
 
@@ -39,17 +38,17 @@ dec_volume() {
 
 toggle_mute() {
   if [ "$(pamixer --get-mute)" == "false" ]; then
-    pamixer -m && notify-send -u low "🔇 Volume" "Muted"
+    pamixer -m && notify-send -a "volume-control" -u low "🔇 Volume" "Muted"
   else
-    pamixer -u && notify-send -u low "$(get_icon) Volume" "Unmuted"
+    pamixer -u && notify-send -a "volume-control" -u low "$(get_icon) Volume" "Unmuted"
   fi
 }
 
 toggle_mic() {
   if [ "$(pamixer --default-source --get-mute)" == "false" ]; then
-    pamixer --default-source -m && notify-send -u low "🎤❌ Microphone" "OFF"
+    pamixer --default-source -m && notify-send -a "mic-control" -u low "🎤❌ Microphone" "OFF"
   else
-    pamixer -u --default-source u && notify-send -u low "🎤 Microphone" "ON"
+    pamixer --default-source -u && notify-send -a "mic-control" -u low "🎤 Microphone" "ON"
   fi
 }
 
@@ -64,9 +63,9 @@ get_mic_volume() {
 }
 
 notify_mic_user() {
-  volume=$(get_mic_volume)
+  volume=$(pamixer --default-source --get-volume)
   icon=$(get_mic_icon)
-  notify-send -h int:value:"${volume%\%}" -u low "$icon Microphone" "$volume"
+  notify-send -a "mic-control" -h int:value:"$volume" -u low "$icon Microphone" "$(get_mic_volume)"
 }
 
 inc_mic_volume() {
