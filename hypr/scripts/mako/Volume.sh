@@ -29,11 +29,19 @@ notify_user() {
 }
 
 inc_volume() {
-  [ "$(pamixer --get-mute)" == "true" ] && toggle_mute || pamixer -i 5 --allow-boost --set-limit 150 && notify_user
+  if [ "$(pamixer --get-mute)" == "true" ]; then
+    toggle_mute
+  else
+    pamixer -i 5 --allow-boost --set-limit 150 && notify_user
+  fi
 }
 
 dec_volume() {
-  [ "$(pamixer --get-mute)" == "true" ] && toggle_mute || pamixer -d 5 && notify_user
+  if [ "$(pamixer --get-mute)" == "true" ]; then
+    toggle_mute
+  else
+    pamixer -d 5 && notify_user
+  fi
 }
 
 toggle_mute() {
@@ -69,11 +77,19 @@ notify_mic_user() {
 }
 
 inc_mic_volume() {
-  [ "$(pamixer --default-source --get-mute)" == "true" ] && toggle_mic || pamixer --default-source -i 5 && notify_mic_user
+  if [ "$(pamixer --default-source --get-mute)" == "true" ]; then
+    toggle_mic
+  else
+    pamixer --default-source -i 5 && notify_mic_user
+  fi
 }
 
 dec_mic_volume() {
-  [ "$(pamixer --default-source --get-mute)" == "true" ] && toggle_mic || pamixer --default-source -d 5 && notify_mic_user
+  if [ "$(pamixer --default-source --get-mute)" == "true" ]; then
+    toggle_mic
+  else
+    pamixer --default-source -d 5 && notify_mic_user
+  fi
 }
 
 case "$1" in
