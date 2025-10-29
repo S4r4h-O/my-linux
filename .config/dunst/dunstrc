@@ -1,0 +1,63 @@
+[global]
+    font = Iosevka Term 11
+    markup = full
+    format = "<b>%s</b>\n%b"
+    sort = no
+    indicate_hidden = yes
+    alignment = center
+    word_wrap = yes
+    ignore_newline = no
+    stack_duplicates = yes
+    hide_duplicate_count = yes
+    
+    width = 300
+    height = 300
+    origin = top-right
+    offset = 15x49
+    
+    shrink = no
+    transparency = 5
+    idle_threshold = 0
+    monitor = 0
+    follow = none
+    
+    sticky_history = yes
+    history_length = 15
+    show_indicators = no
+    
+    line_height = 3
+    separator_height = 2
+    padding = 6
+    horizontal_padding = 6
+    separator_color = frame
+    
+    frame_width = 3
+    frame_color = "#8EC07C"
+    
+    icon_position = off
+    max_icon_size = 80
+    
+    dmenu = /usr/bin/rofi -dmenu -p "dunst:" -normal-window
+    browser = /usr/bin/firefox -new-tab
+    
+    mouse_left_click = do_action, close_current
+    mouse_middle_click = close_current
+    mouse_right_click = close_all
+
+[urgency_low]
+    frame_color = "#3B7C87"
+    foreground = "#3B7C87"
+    background = "#191311"
+    timeout = 4
+
+[urgency_normal]
+    frame_color = "#5B8234"
+    foreground = "#5B8234"
+    background = "#191311"
+    timeout = 6
+
+[urgency_critical]
+    frame_color = "#B7472A"
+    foreground = "#B7472A"
+    background = "#191311"
+    timeout = 8
