@@ -1,3 +1,5 @@
+#!/bin/bash
+
 cat <<EOF >pyrightconfig.json
 {
   "venvPath": ".",
@@ -14,7 +16,8 @@ EOF
 
 echo "pyrightconfig created"
 
-cat <<EOF >pyproject.toml
+uv init
+cat >> pyproject.toml <<'EOF'
 [tool.ruff]
 line-length = 88
 target-version = "py313"
