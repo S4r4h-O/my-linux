@@ -18,6 +18,7 @@ echo "pyrightconfig created"
 
 uv init
 cat >> pyproject.toml <<'EOF'
+
 [tool.ruff]
 line-length = 88
 target-version = "py313"
