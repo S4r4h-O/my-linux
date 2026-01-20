@@ -1,23 +1,29 @@
 #!/bin/bash
 
+GREEN="\e[0;32m"
+PURPLE="\e[0;35m"
+RESET="\e[0m"
+
+#############################
+# LSP AND LINT
+#############################
+
 cat <<EOF >pyrightconfig.json
 {
   "venvPath": ".",
   "venv": ".venv",
-  "include": ["backend"],
-  "exclude": ["frontend", "**/__pycache__", "**/node_modules"],
+  "include": ["backend", "src"],
+  "exclude": ["frontend", "**/__pycache__", "**/.ruff_cache", "**/node_modules"],
   "pythonPlatform": "Linux",
-  "typeCheckingMode": "basic",
-  "useLibraryCodeForTypes": true,
   "reportMissingImports": true,
-  "reportMissingTypeStubs": false
 }
 EOF
 
-echo "pyrightconfig created"
+printf "${PURPLE}pyrightconfig created ${RESET}\n"
 
 uv init
-cat >> pyproject.toml <<'EOF'
+
+cat >>pyproject.toml <<'EOF'
 
 [tool.ruff]
 line-length = 88
@@ -113,4 +119,39 @@ multiline-quotes = "double"
 check-typed-exception = true
 EOF
 
-echo "pyproject.toml created"
+printf "${PURPLE}pyproject.toml created${RESET}\n"
+
+cat >>pyrefly.toml <<'EOF'
+project-includes = ["src"]
+project-excludes = ["**/.[!/.]*", "**/tests"]
+search-path = ["."]
+site-package-path = ["venv/lib/python3.12/site-packages"]
+
+python-platform = "linux"
+python-version = "3.12"
+python-interpreter-path = ".venv/bin/python3"
+
+replace-imports-with-any = ["sympy.*", "*.series"]
+ignore-errors-in-generated-code = true
+
+# disable `bad-assignment` and `invalid-argument` for the whole project
+[errors]
+bad-assignment = false
+invalid-argument = false
+EOF
+
+printf "${PURPLE}pyrefly.toml generated ${RESET}\n"
+
+#############################
+# PROJECT STRUCTURE
+#############################
+
+curl -sL https://www.gitignore.io/api/python >.gitignore
+
+printf "${PURPLE}.gitignore generated ${RESET}\n"
+
+mkdir src
+
+mv main.py src/
+
+printf "${GREEN}Project structure generated! ${RESET}"
