@@ -10,7 +10,7 @@ RESET="\e[0m"
 
 uv init
 
-cat >>pyproject.toml <<'EOF'
+cat > pyproject.toml <<'EOF'
 [project]
 name = "project-name"
 version = "0.0.1"
