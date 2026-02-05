@@ -85,11 +85,16 @@ shotactive() {
 }
 
 shotswappy() {
-  tmpfile=$(mktemp)
-  grim -g "$(slurp)" - >"$tmpfile"
+  tmpfile=$(mktemp --suffix=.png)
+  grim -g "$(slurp)" "$tmpfile"
   if [[ -s "$tmpfile" ]]; then
-    wl-copy <"$tmpfile"
-    notify_view "swappy"
+    swappy -f "$tmpfile" -o "${dir}/${file}"
+    if [[ -e "${dir}/${file}" ]]; then
+      wl-copy <"${dir}/${file}"
+      "${sDIR}/Sounds.sh" --screenshot
+      dunstify -u normal -t 10000 "Screenshot" "Edited and copied"
+    fi
+    rm "$tmpfile"
   fi
 }
 
