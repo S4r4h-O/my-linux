@@ -8,9 +8,69 @@ RESET="\e[0m"
 # LSP AND LINT
 #############################
 
+PYREFLY=$(
+  cat <<PYREFLY_EOF
+# Pyrefly documentation: https://pyrefly.org/en/docs/configuration/#configuration-options
+# Define directories to type check. Matching the setup of source in "src".
+project-includes = ["src"]
+
+# Add "src" to search path to ensure absolute imports resolve correctly.
+search-path = ["src"]
+
+# Match the project's Python version requirement.
+python-version = "3.12"
+
+# Standard exclusions, augmented with specific project dirs if needed.
+project-excludes = ["**/node_modules", "**/__pycache__", "**/.venv", "**/build", "**/dist"]
+
+# Behavior for untyped functions. "check-and-infer-return-type" is similar to Pyright/Ty default.
+untyped-def-behavior = "check-and-infer-return-type"
+
+# Configure specific error codes if necessary.
+# Defaults are usually sufficient, but overrides go here.
+[errors]
+# Example: invalid-argument = true
+PYREFLY_EOF
+)
+
+TY=$(
+  cat <<TY_EOF
+# Ty documentation: https://docs.astral.sh/ty/
+
+[environment]
+python = "./.venv"
+python-platform = "all"
+python-version = "3.12"
+root = [".", "./src"]
+
+[src]
+include = ["src", "tests"]
+exclude = ["**/generated/**"]
+TY_EOF
+)
+
+while true; do
+  read -r -p "Choose ty (t) or pyrefly (p) as LSP: " answer
+  case $answer in
+  t)
+    printf "ty was chosen\n"
+    echo "$TY" >ty.toml
+    break
+    ;;
+  p)
+    printf "pyrefly was chosen\n"
+    echo "$PYREFLY" >pyrefly.toml
+    break
+    ;;
+  *)
+    echo -n "Invalid option"
+    ;;
+  esac
+done
+
 uv init
 
-cat > pyproject.toml <<'EOF'
+cat >pyproject.toml <<PYPROJECT_EOF
 [project]
 name = "project-name"
 version = "0.0.1"
@@ -82,7 +142,7 @@ ignore = [
     "D104",    # Missing docstring in public package
     "D203",    # 1 blank line required before class docstring
     "D213",    # Multi-line docstring summary should start at the second line
-    "RUF012",  # Mutable class attributes should be annotated with `typing.ClassVar`
+    "RUF012",  # Mutable class attributes should be annotated with
     "PLR0913", # too many arguments
     "PLR0912", # too many branches
     "PLR0915", # too many statements
@@ -124,9 +184,23 @@ multiline-quotes = "double"
 [tool.ruff.lint.flake8-bandit]
 check-typed-exception = true
 
+# [tool.taskipy.tasks]
+# test = "pytest --cov=src --cov-report=term-missing"
+# lint = "ruff check . && ruff format --check ."
+# format = "ruff check --fix . && ruff format ."
+# post_test = "coverage html"
+
 [dependency-groups]
-dev = ["pytest"]
-EOF
+dev = [
+  "pytest",
+  "pytest-cov",
+  "pytest-mock",
+  "ruff",
+  "pre-commit",
+  "ipdb",
+  "taskipy",
+]
+PYPROJECT_EOF
 
 printf "${PURPLE}pyproject.toml created${RESET}\n"
 
